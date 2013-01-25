@@ -20,7 +20,7 @@ class Map extends JKTileMap
 		{
 			for ( j in 0...arrayHeight )
 			{	
-				set(new Tile(i, j), i, j);
+				set(new Tile(i, j, "img/tile.png"), i, j);
 			}
 		}	
 	}	

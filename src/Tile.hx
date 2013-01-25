@@ -8,10 +8,10 @@ import nme.display.DisplayObjectContainer;
  */
 
 class Tile extends JKTile
-{
-	public function new( xPos : Float = 0, yPos : Float = 0, ?theWidth : Float
+{	
+	public function new( XCoord : Int = 0, YCoord : Int = 0, ?theWidth : Float
 		, ?theHeight : Float, ?graphicFileLocation : String, ?theLayer : DisplayObjectContainer ) 
 	{
-		super(xPos, yPos, theWidth, theHeight, graphicFileLocation, theLayer);
-	}	
+		super(XCoord, YCoord, theWidth, theHeight, graphicFileLocation, theLayer);
+	}
 }
