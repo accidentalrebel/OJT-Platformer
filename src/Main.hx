@@ -25,7 +25,7 @@ class Main extends Sprite
 	private function init(e) 
 	{
 		// entry point
-		trace("test");
+		var game : Game = new Game();
 		// new to Haxe NME? please read *carefully* the readme.txt file!
 	}
 	
