@@ -1,6 +1,6 @@
 package ;
 import jkEngine.JKGame;
-import jkEngine.JKSprite;
+import jkEngine.JKLayer;
 
 /**
  * ...
@@ -11,17 +11,16 @@ class Game extends JKGame
 {
 	var map : Map;
 	var player : Player;	
-	var gameLayer : JKSprite;
+	public var fgLayer : JKLayer;
+	public var bgLayer : JKLayer;
 	
 	public function new() 
 	{	
 		super();		
-		gameLayer = new JKSprite();
-		stage.addChild(gameLayer);
+		bgLayer = new JKLayer(stage);
+		fgLayer = new JKLayer(stage);		
 		
-		//map = new Map();
-		//gameLayer.addChild(map);
-		
-		player = new Player(10, 10, "img/player.png", stage);
+		map = new Map(bgLayer);		
+		player = new Player(10, 10, "img/player.png", fgLayer);
 	}	
 }

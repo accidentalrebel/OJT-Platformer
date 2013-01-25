@@ -1,5 +1,6 @@
 package ;
 import jkEngine.JKTileMap;
+import nme.display.DisplayObjectContainer;
 
 /**
  * ...
@@ -9,20 +10,18 @@ import jkEngine.JKTileMap;
 class Map extends JKTileMap
 {
 
-	public function new() 
+	public function new(theLayer : DisplayObjectContainer) 
 	{
-		super(20, 20);
-		
-		
+		super(20, 20, theLayer);
 	}
 	
-	override private function populateTileMap():Void 
+	override private function populateTileMap(theLayer : DisplayObjectContainer):Void 
 	{		
 		for ( i in 0...arrayWidth )
 		{
 			for ( j in 0...arrayHeight )
 			{	
-				set(new Tile(i, j, "img/tile.png"), i, j);
+				set(new Tile(i, j, "img/tile.png", theLayer), i, j);
 			}
 		}	
 	}	
