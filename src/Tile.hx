@@ -13,6 +13,5 @@ class Tile extends JKTile
 		, ?theHeight : Float, ?graphicFileLocation : String, ?theLayer : DisplayObjectContainer ) 
 	{
 		super(xPos, yPos, theWidth, theHeight, graphicFileLocation, theLayer);
-	}
-	
+	}	
 }
