@@ -10,15 +10,15 @@ import nme.display.DisplayObjectContainer;
 class Map extends JKTileMap
 {
 	var mapData : String =
-		"10000000000000000000" +
+		"11111111111111111111" +
 		"01000000000000000010" +
+		"10000000000000000000" +
 		"00000000000000000000" +
 		"00000000000000000000" +
+		"10000000000000000000" +
 		"00000000000000000000" +
 		"00000000000000000000" +
-		"00000000000000000000" +
-		"00000000000000000000" +
-		"00000000000000000000" +
+		"10000000000000000000" +
 		"00000000000000000000" +
 		"00000000000000000000" +
 		"00000000000000000000" +
@@ -44,9 +44,7 @@ class Map extends JKTileMap
 		{
 			for ( j in 0...arrayHeight )
 			{	
-				set(new Tile(i, j, theLayer, Std.parseInt(MapData.charAt(
-					( i * arrayHeight ) + j ))
-					), i, j);
+				set(new Tile(i, j, 40, 40, "img/mapTiles.png", theLayer, Std.parseInt(MapData.charAt(( i * arrayHeight ) + j ))), i, j);
 			}
 		}
 	}
