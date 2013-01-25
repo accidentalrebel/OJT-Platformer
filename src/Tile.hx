@@ -9,6 +9,7 @@ import nme.display.DisplayObjectContainer;
 
 class Tile extends JKTile
 {	
+	
 	public function new( XCoord : Int = 0, YCoord : Int = 0, ?theWidth : Float
 		, ?theHeight : Float, ?graphicFileLocation : String, ?theLayer : DisplayObjectContainer ) 
 	{

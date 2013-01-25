@@ -12,6 +12,8 @@ class Map extends JKTileMap
 	public function new() 
 	{
 		super(20, 20);
+		
+		
 	}
 	
 	override private function populateTileMap():Void 
