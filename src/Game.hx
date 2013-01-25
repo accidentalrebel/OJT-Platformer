@@ -21,6 +21,7 @@ class Game extends JKGame
 		fgLayer = new JKLayer(stage);		
 		
 		map = new Map(bgLayer);		
-		player = new Player(10, 10, "img/player.png", fgLayer);
+		player = new Player(0, 0, 35, 50, "img/player.png", true, fgLayer);
+		player.addAnimation("idle", [ 0, 1, 2, 3] ); 
 	}	
 }
