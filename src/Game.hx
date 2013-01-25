@@ -20,10 +20,8 @@ class Game extends JKGame
 		bgLayer = new JKLayer(stage);
 		fgLayer = new JKLayer(stage);		
 		
-		//map = new Map(bgLayer);		
+		map = new Map(bgLayer);		
 		player = new Player(0, 0, 40, 50, "img/player.png", true, fgLayer);
-		//player.play("idle");
-		//player.play("run");
-		player.play("jump");
+		player.play("idle");		
 	}	
 }
