@@ -13,6 +13,5 @@ class Player extends JKSprite
 		, ?FrameHeight : Float, ?graphicFileLocation : String, IsAnimated : Bool = false, ?theLayer : DisplayObjectContainer ) 
 	{
 		super(xPos, yPos, FrameWidth, FrameHeight, graphicFileLocation, IsAnimated, theLayer);
-	}
-	
+	}	
 }
