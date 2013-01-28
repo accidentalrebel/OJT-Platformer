@@ -162,8 +162,8 @@ class Player extends JKSprite
 	{
 		var point1 : JKPoint = new JKPoint(x, y);
 		var point2 : JKPoint = new JKPoint(x + frameWidth, y);
-		var point3 : JKPoint = new JKPoint(x + frameWidth, y + frameHeight);
-		var point4 : JKPoint = new JKPoint(x, y + frameHeight);		
+		var point3 : JKPoint = new JKPoint(x + frameWidth, y + frameHeight - 10);
+		var point4 : JKPoint = new JKPoint(x, y + frameHeight - 10);		
 		
 		var yToCheck : Float = y + (frameHeight / 2);
 		var xToCheck : Float = x + (frameWidth / 2);
@@ -193,15 +193,30 @@ class Player extends JKSprite
 				var theTile : Tile = Registry.game.map.get(i, j);					
 				if ( theTile.tileValue != 0 )
 				{		
-					if ( yToCheck > theTile.y 
-						&& yToCheck < (theTile.y + theTile.frameHeight) 
-						&& xToCheck > theTile.x 
-						&& xToCheck < (theTile.x + theTile.frameWidth))
-					{	
-						return false;
-					}		
-					
-					
+					if ( direction == MoveDirection.Right )
+					{
+						if ( checkIfColliding(point2, theTile) || checkIfColliding(point3, theTile) )
+						{
+							return false;
+						}
+					}
+					else if ( direction == MoveDirection.Left )
+					{
+						if ( checkIfColliding(point1, theTile) || checkIfColliding(point4, theTile) )
+						{
+							return false;
+						}
+					}
+					else
+					{
+						if ( yToCheck > theTile.y 
+							&& yToCheck < (theTile.y + theTile.frameHeight) 
+							&& xToCheck > theTile.x 
+							&& xToCheck < (theTile.x + theTile.frameWidth))
+						{	
+							return false;
+						}	
+					}						
 				}
 			}
 		}
