@@ -21,10 +21,11 @@ enum MoveDirection
  
 class Player extends JKSprite
 {
-	var movementSpeed : Float = 3;
-	var gravity : Float = 0.05;
+	var movementSpeed : Float = 5;
+	var gravity : Float = 0.50;
 	var isJumping : Bool = false;
 	var isGrounded : Bool = false;
+	var maxJump : Int = 10;
 	
 	/********************************************************************************
 	 * MAIN
@@ -39,7 +40,7 @@ class Player extends JKSprite
 		addAnimation("jump", [ 12, 13, 14, 15, 16, 17, 18], 150 );		
 		
 		velocity.y = gravity;
-		maxVelocity.y = 2;
+		maxVelocity.y = 30;
 		play("idle");
 	}	
 	
@@ -63,19 +64,15 @@ class Player extends JKSprite
 		{
 			play("idle");
 		}
-		
+				
 		// Jumping
 		if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
 		{
-			if ( checkIfGrounded() )
+			if ( isGrounded )
 			{			
 				jump();	
 			}
 		}
-		else
-		{
-			isJumping = false;
-		}		
 		
 		super.update();
 		
@@ -83,11 +80,7 @@ class Player extends JKSprite
 		{			
 			velocity.y = gravity;
 		}
-		else
-		{
-			velocity.y = 0;
-			velocityDelta.y = 0;
-		}	
+		
 		
 		if ( !checkIfCanMove(MoveDirection.Up) )
 		{
@@ -148,11 +141,10 @@ class Player extends JKSprite
 	
 	function jump() : Void
 	{
-		if ( isJumping )
-			return;
-			
-		acceleration.y = -3;
-		isJumping = true;
+		velocity.y = 0;
+		velocityDelta.y = 0;
+		acceleration.y = -10;
+		isGrounded = false;
 	}
 	
 	/********************************************************************************
@@ -162,8 +154,8 @@ class Player extends JKSprite
 	{
 		var point1 : JKPoint = new JKPoint(x, y);
 		var point2 : JKPoint = new JKPoint(x + frameWidth, y);
-		var point3 : JKPoint = new JKPoint(x + frameWidth, y + frameHeight - 10);
-		var point4 : JKPoint = new JKPoint(x, y + frameHeight - 10);		
+		var point3 : JKPoint = new JKPoint(x + frameWidth - 10, y + frameHeight - 10);
+		var point4 : JKPoint = new JKPoint(x + 10, y + frameHeight - 10);		
 		
 		var yToCheck : Float = y + (frameHeight / 2);
 		var xToCheck : Float = x + (frameWidth / 2);
@@ -210,10 +202,21 @@ class Player extends JKSprite
 					else
 					{
 						if ( yToCheck > theTile.y 
-							&& yToCheck < (theTile.y + theTile.frameHeight) 
+							&& yToCheck <= (theTile.y + theTile.frameHeight) 
 							&& xToCheck > theTile.x 
-							&& xToCheck < (theTile.x + theTile.frameWidth))
-						{	
+							&& xToCheck <= (theTile.x + theTile.frameWidth))
+						{							
+							var adjustAmount : Float = 0;
+							if ( direction == MoveDirection.Down )
+							{
+								adjustAmount = yToCheck - theTile.y;
+								y -= adjustAmount;
+								
+								velocity.y = 0;
+								acceleration.y = 0;
+								isGrounded = true;
+							}
+							
 							return false;
 						}	
 					}						
@@ -239,8 +242,8 @@ class Player extends JKSprite
 	
 	function checkIfGrounded() : Bool
 	{
-		var yToCheck : Float = y + (frameHeight);
-		var xToCheck : Float = x;
+		var yToCheck : Float = y + (frameHeight / 2) ;
+		var xToCheck : Float = x + (frameWidth / 2);
 		
 		// We loop through tiles
 		for ( i in 0...Registry.game.map.arrayWidth )
@@ -251,19 +254,18 @@ class Player extends JKSprite
 				if ( theTile.tileValue != 0 )
 				{
 					if ( ( yToCheck + frameHeight ) > theTile.y 
-						&& yToCheck < (theTile.y + theTile.frameHeight) 
+						&& yToCheck <= (theTile.y + theTile.frameHeight) 
 						&& xToCheck + frameWidth > theTile.x 
-						&& xToCheck < (theTile.x + theTile.frameWidth))
+						&& xToCheck <= (theTile.x + theTile.frameWidth))
 					{	
-						isGrounded = true;
-						return true;
-						
+						velocity.y = 0;
+						acceleration.y = 0;
+						return true;						
 					}
 				}
 			}
 		}
-		isGrounded = false;
-		
+			
 		return false;
 	}
 }
