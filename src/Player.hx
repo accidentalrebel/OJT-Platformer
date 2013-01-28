@@ -21,7 +21,7 @@ enum MoveDirection
 class Player extends JKSprite
 {
 	var movementSpeed : Float = 3;
-	var gravity : Float = 3;
+	var gravity : Float = 0.05;
 
 	/********************************************************************************
 	 * MAIN
@@ -35,7 +35,8 @@ class Player extends JKSprite
 		addAnimation("run", [4, 5, 6, 7, 8, 9, 10, 11], 100 );
 		addAnimation("jump", [ 12, 13, 14, 15, 16, 17, 18], 150 );		
 		
-		velocity.y = 0.05;
+		velocity.y = gravity;
+		maxVelocity.y = 2;
 		play("idle");
 	}	
 	
@@ -83,14 +84,15 @@ class Player extends JKSprite
 			play("idle");
 		}
 		
-		//if ( checkIfCanMove(MoveDirection.Down) )
-		//{			
-			//yAcceleration = gravity;
-		//}
-		//else
-		//{
-			//yAcceleration = 0;
-		//}
+		if ( checkIfCanMove(MoveDirection.Down) )
+		{			
+			velocity.y = gravity;
+		}
+		else
+		{
+			velocity.y = 0;
+			velocityDelta.y = 0;
+		}
 	}
 	
 	
@@ -130,7 +132,7 @@ class Player extends JKSprite
 		}
 		else if ( direction == MoveDirection.Down )
 		{
-			yToCheck += gravity;
+			yToCheck += movementSpeed;
 		}
 		else if ( direction == MoveDirection.Left )
 		{
