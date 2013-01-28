@@ -49,17 +49,24 @@ class Player extends JKSprite
 		}
 		else if ( Registry.game.keyboard.checkIfKeyPressed("a") )
 		{
-			Lib.trace("a is pressed");
-			moveLeft();
+			if ( checkIfCanMove(MoveDirection.Left))
+			{
+				moveLeft();
+			}
 		}
 		else if ( Registry.game.keyboard.checkIfKeyPressed("s") )
 		{
-			Lib.trace("s is pressed");
+			if ( checkIfCanMove(MoveDirection.Down))
+			{
+				Lib.trace("s is pressed");
+			}			
 		}
 		else if ( Registry.game.keyboard.checkIfKeyPressed("d") )
 		{
-			Lib.trace("d is pressed");
-			moveRight();
+			if ( checkIfCanMove(MoveDirection.Right))
+			{
+				moveRight();
+			}
 		}		
 		else if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
 		{
@@ -113,29 +120,47 @@ class Player extends JKSprite
 	 * ******************************************************************************/
 	function checkIfCanMove( direction : MoveDirection ) : Bool
 	{
-		if ( direction == MoveDirection.Down )
+		var yToCheck : Float = y;
+		var xToCheck : Float = x;
+		
+		if ( direction == MoveDirection.Up )
 		{
-			// We loop through tiles
-			for ( i in 0...Registry.game.map.arrayWidth )
+			yToCheck -= movementSpeed;
+		}
+		else if ( direction == MoveDirection.Down )
+		{
+			yToCheck += movementSpeed;
+		}
+		else if ( direction == MoveDirection.Left )
+		{
+			xToCheck -= movementSpeed;
+		}
+		else if ( direction == MoveDirection.Right )
+		{
+			xToCheck += movementSpeed;
+		}		
+		
+		// We loop through tiles
+		for ( i in 0...Registry.game.map.arrayWidth )
+		{
+			for ( j in 0...Registry.game.map.arrayHeight )
 			{
-				for ( j in 0...Registry.game.map.arrayHeight )
+				var theTile : Tile = Registry.game.map.get(i, j);					
+				if ( theTile.tileValue != 0 )
 				{
-					var theTile : Tile = Registry.game.map.get(i, j);					
-					if ( theTile.tileValue != 0 )
-					{
-						//if ( ( y + frameHeight ) > theTile.y 
-							//&&  y < (theTile.y + theTile.frameHeight) )
-						if ( JKUtils.collide(this, theTile) )
-						{						
-							Lib.trace("collision with " + theTile.objectName);
-							return false;
-						}
+					if ( ( yToCheck + frameHeight ) > theTile.y 
+						&& yToCheck < (theTile.y + theTile.frameHeight) 
+						&& xToCheck + frameWidth > theTile.x 
+						&& xToCheck < (theTile.x + theTile.frameWidth))
+					//if ( JKUtils.collide(this, theTile) )
+					{						
+						Lib.trace("collision with " + theTile.objectName);
+						return false;
 					}
 				}
 			}
 		}
 		
-		Lib.trace("No collision");
 		return true;
 	}
 }
