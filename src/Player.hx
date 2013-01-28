@@ -196,14 +196,35 @@ class Player extends JKSprite
 						&& yToCheck < (theTile.y + theTile.frameHeight) 
 						&& xToCheck > theTile.x 
 						&& xToCheck < (theTile.x + theTile.frameWidth))
-					{		
+					{	
 						return false;
-					}					
+					}		
+					
+					if ( direction == MoveDirection.Right )
+					{
+						if ( checkIfColliding(point3, theTile))
+						{							
+							return false;
+						}
+					}
 				}
 			}
 		}
 		
 		return true;
+	}
+	
+	function checkIfColliding( point : JKPoint, theTile : Tile) : Bool
+	{
+		if ( point.y > theTile.y 
+			&& point.y < (theTile.y + theTile.frameHeight) 
+			&& point.x > theTile.x 
+			&& point.x < (theTile.x + theTile.frameWidth) )
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	function checkIfGrounded() : Bool
