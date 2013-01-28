@@ -91,6 +91,7 @@ class Player extends JKSprite
 		if ( !checkIfCanMove(MoveDirection.Up) )
 		{
 			velocity.y = gravity * 2;		
+			velocityDelta.y = 0;
 		}
 	}
 	//
@@ -168,7 +169,7 @@ class Player extends JKSprite
 		
 		if ( direction == MoveDirection.Up )
 		{
-			yToCheck -= (( frameHeight / 2 ) + movementSpeed);
+			yToCheck -= (( frameHeight / 2 ));
 		}
 		else if ( direction == MoveDirection.Down )
 		{
