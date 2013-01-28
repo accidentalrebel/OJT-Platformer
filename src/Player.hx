@@ -24,7 +24,8 @@ class Player extends JKSprite
 	var movementSpeed : Float = 3;
 	var gravity : Float = 0.05;
 	var isJumping : Bool = false;
-
+	var isGrounded : Bool = false;
+	
 	/********************************************************************************
 	 * MAIN
 	 * ******************************************************************************/
@@ -198,15 +199,7 @@ class Player extends JKSprite
 						&& xToCheck < (theTile.x + theTile.frameWidth))
 					{	
 						return false;
-					}		
-					
-					if ( direction == MoveDirection.Right )
-					{
-						if ( checkIfColliding(point3, theTile))
-						{							
-							return false;
-						}
-					}
+					}							
 				}
 			}
 		}
@@ -229,7 +222,7 @@ class Player extends JKSprite
 	
 	function checkIfGrounded() : Bool
 	{
-		var yToCheck : Float = y + (frameHeight);
+		var yToCheck : Float = y + (frameHeight / 2);
 		var xToCheck : Float = x;
 		
 		// We loop through tiles
@@ -244,12 +237,15 @@ class Player extends JKSprite
 						&& yToCheck < (theTile.y + theTile.frameHeight) 
 						&& xToCheck + frameWidth > theTile.x 
 						&& xToCheck < (theTile.x + theTile.frameWidth))
-					{		
+					{	
+						isGrounded = true;
 						return true;
+						
 					}
 				}
 			}
 		}
+		isGrounded = false;
 		
 		return false;
 	}
