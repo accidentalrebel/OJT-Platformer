@@ -1,5 +1,6 @@
 package ;
 import jkEngine.JKSprite;
+import jkEngine.JKUtils;
 import nme.display.DisplayObjectContainer;
 import jkEngine.input.JKKeyboard;
 import nme.Lib;
@@ -13,6 +14,9 @@ class Player extends JKSprite
 {
 	var movementSpeed : Float = 3;
 
+	/********************************************************************************
+	 * MAIN
+	 * ******************************************************************************/
 	public function new( xPos : Float = 0, yPos : Float = 0, ?FrameWidth : Float
 		, ?FrameHeight : Float, ?graphicFileLocation : String, IsAnimated : Bool = false, ?theLayer : DisplayObjectContainer ) 
 	{
@@ -22,6 +26,7 @@ class Player extends JKSprite
 		addAnimation("run", [4, 5, 6, 7, 8, 9, 10, 11], 100 );
 		addAnimation("jump", [ 12, 13, 14, 15, 16, 17, 18], 150 );		
 		
+		yAcceleration = 1;
 		play("idle");
 	}	
 	
@@ -51,6 +56,7 @@ class Player extends JKSprite
 		else if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
 		{
 			Lib.trace("spacebar is pressed");
+			jump();
 		}
 		else if ( Registry.game.keyboard.checkIfKeyReleased("d") )
 		{
@@ -60,8 +66,21 @@ class Player extends JKSprite
 		{
 			play("idle");
 		}
+		
+		if ( JKUtils.collide(this, Registry.object2) )
+		{			
+			yAcceleration = 0;
+		}
+		else
+		{
+			yAcceleration = 1;
+		}
 	}
 	
+	
+	/********************************************************************************
+	 * MOVEMENT
+	 * ******************************************************************************/
 	function moveRight() : Void
 	{
 		x += movementSpeed;		
@@ -75,4 +94,11 @@ class Player extends JKSprite
 		play("run");
 		flipGraphic(GraphicDirection.Left);
 	}
+	
+	function jump() : Void
+	{
+		
+	}
+	
+	
 }

@@ -23,6 +23,9 @@ class Game extends JKGame
 		fgLayer = new JKLayer(stage);		
 		
 		map = new Map(bgLayer);		
+		
+		Registry.object2 = new Tile(5, 8, 40, 40, "img/mapTiles.png", bgLayer, 1);
+		
 		player = new Player(200, 200, 40, 50, "img/player.png", true, fgLayer);
 		player.play("idle");
 	}	
