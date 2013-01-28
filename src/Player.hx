@@ -2,6 +2,7 @@ package ;
 import jkEngine.JKSprite;
 import nme.display.DisplayObjectContainer;
 import jkEngine.input.JKKeyboard;
+import nme.Lib;
 
 /**
  * ...
@@ -25,9 +26,26 @@ class Player extends JKSprite
 	{
 		super.update();
 		
+		//trace(Registry.game.keyboard.getPressedKey());
 		if ( Registry.game.keyboard.checkIfKeyPressed("w") )
 		{
-			trace("w is pressed");
+			Lib.trace("w is pressed");
+		}
+		else if ( Registry.game.keyboard.checkIfKeyPressed("a") )
+		{
+			Lib.trace("a is pressed");
+		}
+		else if ( Registry.game.keyboard.checkIfKeyPressed("s") )
+		{
+			Lib.trace("s is pressed");
+		}
+		else if ( Registry.game.keyboard.checkIfKeyPressed("d") )
+		{
+			Lib.trace("d is pressed");
+		}
+		else if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
+		{
+			Lib.trace("spacebar is pressed");
 		}
 	}
 }
