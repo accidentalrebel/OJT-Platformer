@@ -22,6 +22,7 @@ class Player extends JKSprite
 {
 	var movementSpeed : Float = 3;
 	var gravity : Float = 0.05;
+	var isJumping : Bool = false;
 
 	/********************************************************************************
 	 * MAIN
@@ -69,12 +70,7 @@ class Player extends JKSprite
 			{
 				moveRight();
 			}
-		}		
-		else if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
-		{
-			Lib.trace("spacebar is pressed");
-			jump();
-		}
+		}				
 		else if ( Registry.game.keyboard.checkIfKeyReleased("d") )
 		{
 			play("idle");
@@ -82,6 +78,17 @@ class Player extends JKSprite
 		else if ( Registry.game.keyboard.checkIfKeyReleased("a") )
 		{
 			play("idle");
+		}
+		
+		if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
+		{
+			Lib.trace("spacebar is pressed");
+			jump();
+		}
+		else
+		{
+			Lib.trace("spacebar is released");
+			isJumping = false;
 		}
 		
 		if ( checkIfCanMove(MoveDirection.Down) )
@@ -115,7 +122,11 @@ class Player extends JKSprite
 	
 	function jump() : Void
 	{
-		
+		if ( isJumping )
+			return;
+			
+		acceleration.y = -3;
+		isJumping = true;
 	}
 	
 	/********************************************************************************
