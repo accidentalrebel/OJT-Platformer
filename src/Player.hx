@@ -82,12 +82,13 @@ class Player extends JKSprite
 		
 		if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
 		{
-			Lib.trace("spacebar is pressed");
-			jump();
+			if ( checkIfGrounded() )
+			{			
+				jump();	
+			}
 		}
 		else
 		{
-			Lib.trace("spacebar is released");
 			isJumping = false;
 		}
 		
@@ -99,6 +100,11 @@ class Player extends JKSprite
 		{
 			velocity.y = 0;
 			velocityDelta.y = 0;
+		}
+		
+		if ( !checkIfCanMove(MoveDirection.Up) )
+		{
+			velocity.y = gravity;
 		}
 	}
 	
@@ -139,7 +145,7 @@ class Player extends JKSprite
 		
 		if ( direction == MoveDirection.Up )
 		{
-			yToCheck -= movementSpeed;
+			yToCheck -= gravity;
 		}
 		else if ( direction == MoveDirection.Down )
 		{
@@ -174,5 +180,34 @@ class Player extends JKSprite
 		}
 		
 		return true;
+	}
+	
+	function checkIfGrounded() : Bool
+	{
+		var yToCheck : Float = y + (frameHeight / 2);
+		var xToCheck : Float = x;
+		
+		// We loop through tiles
+		for ( i in 0...Registry.game.map.arrayWidth )
+		{
+			for ( j in 0...Registry.game.map.arrayHeight )
+			{
+				var theTile : Tile = Registry.game.map.get(i, j);					
+				if ( theTile.tileValue != 0 )
+				{
+					if ( ( yToCheck + frameHeight ) > theTile.y 
+						&& yToCheck < (theTile.y + theTile.frameHeight) 
+						&& xToCheck + frameWidth > theTile.x 
+						&& xToCheck < (theTile.x + theTile.frameWidth))
+					{		
+						Lib.trace("I am grounded");
+						return true;
+					}
+				}
+			}
+		}
+		
+		Lib.trace("I am not grounded");
+		return false;
 	}
 }
