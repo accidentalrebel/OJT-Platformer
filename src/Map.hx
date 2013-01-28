@@ -10,22 +10,21 @@ import nme.display.DisplayObjectContainer;
 class Map extends JKTileMap
 {
 	var mapData : String =
-		"11111111111111111111" +
-		"10000000000000000001" +
-		"10000000000000000001" +
-		"10000000000000000001" +
-		"10000000000000000001" +
-		"10000000000011100011" +
-		"10000000000000000011" +
-		"10000000000000000111" +
-		"11111100000000000111" +
-		"11111100001100011111" +
-		"11111000111100011111" +
-		"11111111111111111111" ;
+		"1111111111111111" +
+		"1000000000000001" +
+		"1000000000000001" +
+		"1000000000000001" +
+		"1000000000000001" +
+		"1000000000011101" +
+		"1000000000000001" +
+		"1000000000000001" +
+		"1111110000000001" +
+		"1111111111111111" ;
+		
 
 	public function new(theLayer : DisplayObjectContainer) 
 	{
-		super(20, 12, theLayer);
+		super(16, 10, theLayer);
 		loadMap(mapData);
 	}
 	
@@ -35,7 +34,7 @@ class Map extends JKTileMap
 		{
 			for ( i in 0...arrayWidth )
 			{	
-				set(new Tile(i, j, 40, 40, "img/mapTiles.png", theLayer, Std.parseInt(MapData.charAt(( j * arrayWidth ) + i ))), i, j);
+				set(new Tile(i, j, 50, 50, "img/mapTiles.png", theLayer, Std.parseInt(MapData.charAt(( j * arrayWidth ) + i ))), i, j);
 			}
 		}
 	}

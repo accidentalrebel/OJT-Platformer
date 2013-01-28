@@ -170,7 +170,7 @@ class Player extends JKSprite
 		
 		if ( direction == MoveDirection.Up )
 		{
-			yToCheck -= (( frameHeight / 2 ));
+			yToCheck -= (( frameHeight / 2 ) - 10);
 		}
 		else if ( direction == MoveDirection.Down )
 		{
@@ -199,7 +199,9 @@ class Player extends JKSprite
 						&& xToCheck < (theTile.x + theTile.frameWidth))
 					{	
 						return false;
-					}							
+					}		
+					
+					
 				}
 			}
 		}
@@ -222,7 +224,7 @@ class Player extends JKSprite
 	
 	function checkIfGrounded() : Bool
 	{
-		var yToCheck : Float = y + (frameHeight / 2);
+		var yToCheck : Float = y + (frameHeight);
 		var xToCheck : Float = x;
 		
 		// We loop through tiles
