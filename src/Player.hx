@@ -1,4 +1,5 @@
 package ;
+import jkengine.JKPoint;
 import jkEngine.JKSprite;
 import jkEngine.JKUtils;
 import nme.display.DisplayObjectContainer;
@@ -43,8 +44,6 @@ class Player extends JKSprite
 	
 	override private function update():Dynamic 
 	{		
-		super.update();
-				
 		if ( Registry.game.keyboard.checkIfKeyPressed("a") )
 		{
 			if ( checkIfCanMove(MoveDirection.Left))
@@ -77,6 +76,8 @@ class Player extends JKSprite
 			isJumping = false;
 		}		
 		
+		super.update();
+		
 		if ( checkIfCanMove(MoveDirection.Down) )
 		{			
 			velocity.y = gravity;
@@ -85,13 +86,45 @@ class Player extends JKSprite
 		{
 			velocity.y = 0;
 			velocityDelta.y = 0;
-		}
+		}	
 		
 		if ( !checkIfCanMove(MoveDirection.Up) )
 		{
-			velocity.y = gravity;
+			velocity.y = gravity * 2;		
 		}
 	}
+	//
+	//override private function ApplyMovement():Dynamic 
+	//{			
+		// We apply acceleration
+		//if ( acceleration.y != 0 )
+		//{
+			//velocity.y += acceleration.y;
+			//acceleration.y -= velocity.y;
+		//}
+		//
+		//if ( acceleration.x != 0 )
+		//{
+			//velocity.x += acceleration.x;
+			//acceleration.x -= velocity.x;
+		//}
+		//
+		// We apply the velocity
+		//if ( velocityDelta.y < maxVelocity.y )
+		//{
+			//if ( velocity.y != 0 )
+				//velocityDelta.y += velocity.y;
+		//}
+		//
+		//if ( velocityDelta.x < maxVelocity.x )
+		//{
+			//if ( velocity.x != 0 )
+				//velocityDelta.x += velocity.x;
+		//}
+		//
+		//y += velocityDelta.y;
+		//x += velocityDelta.x;
+	//}
 	
 	
 	/********************************************************************************
@@ -125,24 +158,29 @@ class Player extends JKSprite
 	 * ******************************************************************************/
 	function checkIfCanMove( direction : MoveDirection ) : Bool
 	{
-		var yToCheck : Float = y;
-		var xToCheck : Float = x;
+		var point1 : JKPoint = new JKPoint(x, y);
+		var point2 : JKPoint = new JKPoint(x + frameWidth, y);
+		var point3 : JKPoint = new JKPoint(x + frameWidth, y + frameHeight);
+		var point4 : JKPoint = new JKPoint(x, y + frameHeight);		
+		
+		var yToCheck : Float = y + (frameHeight / 2);
+		var xToCheck : Float = x + (frameWidth / 2);
 		
 		if ( direction == MoveDirection.Up )
 		{
-			yToCheck -= gravity;
+			yToCheck -= (( frameHeight / 2 ) + movementSpeed);
 		}
 		else if ( direction == MoveDirection.Down )
 		{
-			yToCheck += movementSpeed;
+			yToCheck += (( frameHeight / 2 ) - 3);
 		}
 		else if ( direction == MoveDirection.Left )
 		{
-			xToCheck -= movementSpeed;
+			xToCheck -= (( frameHeight / 2 ) -10 );
 		}
 		else if ( direction == MoveDirection.Right )
 		{
-			xToCheck += movementSpeed;
+			xToCheck += (( frameHeight / 2 ) - 10);
 		}		
 		
 		// We loop through tiles
@@ -152,14 +190,14 @@ class Player extends JKSprite
 			{
 				var theTile : Tile = Registry.game.map.get(i, j);					
 				if ( theTile.tileValue != 0 )
-				{
-					if ( ( yToCheck + frameHeight ) > theTile.y 
+				{		
+					if ( yToCheck > theTile.y 
 						&& yToCheck < (theTile.y + theTile.frameHeight) 
-						&& xToCheck + frameWidth > theTile.x 
+						&& xToCheck > theTile.x 
 						&& xToCheck < (theTile.x + theTile.frameWidth))
 					{		
 						return false;
-					}
+					}					
 				}
 			}
 		}
@@ -169,7 +207,7 @@ class Player extends JKSprite
 	
 	function checkIfGrounded() : Bool
 	{
-		var yToCheck : Float = y + (frameHeight / 2);
+		var yToCheck : Float = y + (frameHeight);
 		var xToCheck : Float = x;
 		
 		// We loop through tiles
