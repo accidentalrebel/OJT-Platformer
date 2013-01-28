@@ -80,6 +80,7 @@ class Player extends JKSprite
 			play("idle");
 		}
 		
+		// Jumping
 		if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
 		{
 			if ( checkIfGrounded() )
@@ -90,7 +91,7 @@ class Player extends JKSprite
 		else
 		{
 			isJumping = false;
-		}
+		}		
 		
 		if ( checkIfCanMove(MoveDirection.Down) )
 		{			
@@ -200,14 +201,12 @@ class Player extends JKSprite
 						&& xToCheck + frameWidth > theTile.x 
 						&& xToCheck < (theTile.x + theTile.frameWidth))
 					{		
-						Lib.trace("I am grounded");
 						return true;
 					}
 				}
 			}
 		}
 		
-		Lib.trace("I am not grounded");
 		return false;
 	}
 }
