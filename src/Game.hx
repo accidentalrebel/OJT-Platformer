@@ -27,8 +27,6 @@ class Game extends JKGame
 		var theTile : Tile = Registry.game.map.get(1, 0);
 		Lib.trace(theTile.objectName);
 		
-		Registry.object2 = new Tile(5, 8, 40, 40, "img/mapTiles.png", bgLayer, 1);
-		
 		player = new Player(200, 200, 40, 50, "img/player.png", true, fgLayer);
 		player.play("idle");
 	}	

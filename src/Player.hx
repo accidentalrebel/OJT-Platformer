@@ -21,6 +21,7 @@ enum MoveDirection
 class Player extends JKSprite
 {
 	var movementSpeed : Float = 3;
+	var gravity : Float = 3;
 
 	/********************************************************************************
 	 * MAIN
@@ -34,12 +35,12 @@ class Player extends JKSprite
 		addAnimation("run", [4, 5, 6, 7, 8, 9, 10, 11], 100 );
 		addAnimation("jump", [ 12, 13, 14, 15, 16, 17, 18], 150 );		
 		
-		yAcceleration = 1;
+		velocity.y = 0.05;
 		play("idle");
 	}	
 	
 	override private function update():Dynamic 
-	{
+	{		
 		super.update();
 		
 		//trace(Registry.game.keyboard.getPressedKey());
@@ -82,14 +83,14 @@ class Player extends JKSprite
 			play("idle");
 		}
 		
-		if ( checkIfCanMove(MoveDirection.Down) )
-		{			
-			yAcceleration = 1;
-		}
-		else
-		{
-			yAcceleration = 0;
-		}
+		//if ( checkIfCanMove(MoveDirection.Down) )
+		//{			
+			//yAcceleration = gravity;
+		//}
+		//else
+		//{
+			//yAcceleration = 0;
+		//}
 	}
 	
 	
@@ -129,7 +130,7 @@ class Player extends JKSprite
 		}
 		else if ( direction == MoveDirection.Down )
 		{
-			yToCheck += movementSpeed;
+			yToCheck += gravity;
 		}
 		else if ( direction == MoveDirection.Left )
 		{
@@ -152,9 +153,7 @@ class Player extends JKSprite
 						&& yToCheck < (theTile.y + theTile.frameHeight) 
 						&& xToCheck + frameWidth > theTile.x 
 						&& xToCheck < (theTile.x + theTile.frameWidth))
-					//if ( JKUtils.collide(this, theTile) )
-					{						
-						Lib.trace("collision with " + theTile.objectName);
+					{		
 						return false;
 					}
 				}
