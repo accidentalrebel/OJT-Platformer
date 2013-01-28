@@ -10,6 +10,14 @@ import nme.Lib;
  * @author Karlo
  */
 
+enum MoveDirection
+{
+	Up;
+	Down;
+	Left;
+	Right;
+}
+ 
 class Player extends JKSprite
 {
 	var movementSpeed : Float = 3;
@@ -67,13 +75,13 @@ class Player extends JKSprite
 			play("idle");
 		}
 		
-		if ( JKUtils.collide(this, Registry.object2) )
+		if ( checkIfCanMove(MoveDirection.Down) )
 		{			
-			yAcceleration = 0;
+			yAcceleration = 1;
 		}
 		else
 		{
-			yAcceleration = 1;
+			yAcceleration = 0;
 		}
 	}
 	
@@ -100,5 +108,34 @@ class Player extends JKSprite
 		
 	}
 	
-	
+	/********************************************************************************
+	 * COLLISIONS
+	 * ******************************************************************************/
+	function checkIfCanMove( direction : MoveDirection ) : Bool
+	{
+		if ( direction == MoveDirection.Down )
+		{
+			// We loop through tiles
+			for ( i in 0...Registry.game.map.arrayWidth )
+			{
+				for ( j in 0...Registry.game.map.arrayHeight )
+				{
+					var theTile : Tile = Registry.game.map.get(i, j);					
+					if ( theTile.tileValue != 0 )
+					{
+						//if ( ( y + frameHeight ) > theTile.y 
+							//&&  y < (theTile.y + theTile.frameHeight) )
+						if ( JKUtils.collide(this, theTile) )
+						{						
+							Lib.trace("collision with " + theTile.objectName);
+							return false;
+						}
+					}
+				}
+			}
+		}
+		
+		Lib.trace("No collision");
+		return true;
+	}
 }

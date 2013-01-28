@@ -1,7 +1,7 @@
 package ;
 import jkEngine.JKGame;
 import jkEngine.JKLayer;
-
+import nme.Lib;
 /**
  * ...
  * @author Karlo
@@ -9,7 +9,7 @@ import jkEngine.JKLayer;
 
 class Game extends JKGame
 {
-	var map : Map;
+	public var map : Map;
 	var player : Player;	
 	public var fgLayer : JKLayer;
 	public var bgLayer : JKLayer;
@@ -23,6 +23,9 @@ class Game extends JKGame
 		fgLayer = new JKLayer(stage);		
 		
 		map = new Map(bgLayer);		
+		map.displayAllContent();
+		var theTile : Tile = Registry.game.map.get(1, 0);
+		Lib.trace(theTile.objectName);
 		
 		Registry.object2 = new Tile(5, 8, 40, 40, "img/mapTiles.png", bgLayer, 1);
 		
