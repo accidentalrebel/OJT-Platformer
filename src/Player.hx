@@ -44,26 +44,14 @@ class Player extends JKSprite
 	override private function update():Dynamic 
 	{		
 		super.update();
-		
-		//trace(Registry.game.keyboard.getPressedKey());
-		if ( Registry.game.keyboard.checkIfKeyPressed("w") )
-		{
-			Lib.trace("w is pressed");
-		}
-		else if ( Registry.game.keyboard.checkIfKeyPressed("a") )
+				
+		if ( Registry.game.keyboard.checkIfKeyPressed("a") )
 		{
 			if ( checkIfCanMove(MoveDirection.Left))
 			{
 				moveLeft();
 			}
-		}
-		else if ( Registry.game.keyboard.checkIfKeyPressed("s") )
-		{
-			if ( checkIfCanMove(MoveDirection.Down))
-			{
-				Lib.trace("s is pressed");
-			}			
-		}
+		}		
 		else if ( Registry.game.keyboard.checkIfKeyPressed("d") )
 		{
 			if ( checkIfCanMove(MoveDirection.Right))
@@ -71,11 +59,7 @@ class Player extends JKSprite
 				moveRight();
 			}
 		}				
-		else if ( Registry.game.keyboard.checkIfKeyReleased("d") )
-		{
-			play("idle");
-		}
-		else if ( Registry.game.keyboard.checkIfKeyReleased("a") )
+		else
 		{
 			play("idle");
 		}
