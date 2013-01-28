@@ -16,6 +16,8 @@ class Game extends JKGame
 	
 	public function new() 
 	{	
+		Registry.game = this;
+		
 		super();		
 		bgLayer = new JKLayer(stage);
 		fgLayer = new JKLayer(stage);		
