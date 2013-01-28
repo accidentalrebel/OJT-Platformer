@@ -37,6 +37,7 @@ class Player extends JKSprite
 		else if ( Registry.game.keyboard.checkIfKeyPressed("a") )
 		{
 			Lib.trace("a is pressed");
+			moveLeft();
 		}
 		else if ( Registry.game.keyboard.checkIfKeyPressed("s") )
 		{
@@ -46,15 +47,18 @@ class Player extends JKSprite
 		{
 			Lib.trace("d is pressed");
 			moveRight();
-		}
-		else if ( Registry.game.keyboard.checkIfKeyReleased("d") )
-		{
-			Lib.trace("d is pressed");
-			play("idle");
-		}
+		}		
 		else if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
 		{
 			Lib.trace("spacebar is pressed");
+		}
+		else if ( Registry.game.keyboard.checkIfKeyReleased("d") )
+		{
+			play("idle");
+		}
+		else if ( Registry.game.keyboard.checkIfKeyReleased("a") )
+		{
+			play("idle");
 		}
 	}
 	
@@ -62,5 +66,13 @@ class Player extends JKSprite
 	{
 		x += movementSpeed;		
 		play("run");
+		flipGraphic(GraphicDirection.Right);
+	}
+	
+	function moveLeft() : Void
+	{
+		x -= movementSpeed;
+		play("run");
+		flipGraphic(GraphicDirection.Left);
 	}
 }
