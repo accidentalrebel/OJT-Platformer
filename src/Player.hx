@@ -1,6 +1,8 @@
 package ;
 import jkEngine.JKSprite;
 import nme.display.DisplayObjectContainer;
+import jkEngine.input.JKKeyboard;
+
 /**
  * ...
  * @author Karlo
@@ -23,6 +25,9 @@ class Player extends JKSprite
 	{
 		super.update();
 		
-		
+		if ( Registry.game.keyboard.checkIfKeyPressed("w") )
+		{
+			trace("w is pressed");
+		}
 	}
 }
