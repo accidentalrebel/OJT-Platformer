@@ -26,17 +26,8 @@ class Map extends JKTileMap
 	public function new(theLayer : DisplayObjectContainer) 
 	{
 		super(20, 12, theLayer);
-		loadMap(mapData);
-	}
-	
-	override public function loadMap(MapData: String)
-	{
-		for ( j in 0...arrayHeight )
-		{
-			for ( i in 0...arrayWidth )
-			{	
-				set(new Tile(i, j, 40, 40, "img/mapTiles.png", theLayer, Std.parseInt(MapData.charAt(( j * arrayWidth ) + i ))), i, j);
-			}
-		}
+		
+		//populateTileMap(Tile, [0, 0, 40, 40, "img/mapTiles.png", theLayer, 1]);
+		loadMap(mapData, Tile, [0, 0, 40, 40, "img/mapTiles.png", theLayer]);
 	}
 }

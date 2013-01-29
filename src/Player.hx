@@ -37,7 +37,7 @@ class Player extends JKSprite
 		
 		addAnimation("idle", [ 0, 1, 2, 3], 150 );
 		addAnimation("run", [4, 5, 6, 7, 8, 9, 10, 11], 100 );
-		addAnimation("jump", [ 12, 13, 14, 15, 16, 17, 18], 150 );		
+		addAnimation("jump", [ 12, 13, 14, 15, 16, 17, 18], 150 );
 		
 		velocity.y = gravity;
 		maxVelocity.y = 30;
@@ -87,40 +87,7 @@ class Player extends JKSprite
 			velocity.y = gravity * 2;		
 			velocityDelta.y = 0;
 		}
-	}
-	//
-	//override private function ApplyMovement():Dynamic 
-	//{			
-		// We apply acceleration
-		//if ( acceleration.y != 0 )
-		//{
-			//velocity.y += acceleration.y;
-			//acceleration.y -= velocity.y;
-		//}
-		//
-		//if ( acceleration.x != 0 )
-		//{
-			//velocity.x += acceleration.x;
-			//acceleration.x -= velocity.x;
-		//}
-		//
-		// We apply the velocity
-		//if ( velocityDelta.y < maxVelocity.y )
-		//{
-			//if ( velocity.y != 0 )
-				//velocityDelta.y += velocity.y;
-		//}
-		//
-		//if ( velocityDelta.x < maxVelocity.x )
-		//{
-			//if ( velocity.x != 0 )
-				//velocityDelta.x += velocity.x;
-		//}
-		//
-		//y += velocityDelta.y;
-		//x += velocityDelta.x;
-	//}
-	
+	}	
 	
 	/********************************************************************************
 	 * MOVEMENT
