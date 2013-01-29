@@ -5,6 +5,7 @@ import jkEngine.JKUtils;
 import nme.display.DisplayObjectContainer;
 import jkEngine.input.JKKeyboard;
 import nme.Lib;
+import nme.ui.Keyboard;
 
 /**
  * ...
@@ -46,14 +47,14 @@ class Player extends JKSprite
 	
 	override private function update():Dynamic 
 	{		
-		if ( Registry.game.keyboard.checkIfKeyPressed("a") )
+		if ( Registry.game.keyboard.checkIfKeyPressed(Keyboard.A) )
 		{
 			if ( checkIfCanMove(MoveDirection.Left))
 			{
 				moveLeft();
 			}
 		}		
-		else if ( Registry.game.keyboard.checkIfKeyPressed("d") )
+		else if ( Registry.game.keyboard.checkIfKeyPressed(Keyboard.D) )
 		{
 			if ( checkIfCanMove(MoveDirection.Right))
 			{
@@ -66,7 +67,7 @@ class Player extends JKSprite
 		}
 				
 		// Jumping
-		if ( Registry.game.keyboard.checkIfKeyPressed("spacebar") )
+		if ( Registry.game.keyboard.checkIfKeyPressed(Keyboard.SPACE) )
 		{
 			if ( isGrounded )
 			{			
